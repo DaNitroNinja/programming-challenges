@@ -1,17 +1,5 @@
-# -------------------------------------------------------------------------------
-# Name:        Programming Challenge 1
-# Purpose:
-#
-# Author:      Rishi Patwardhan
-#
-# Created:     24/04/2024
-# Copyright:   (c) r0patwardhan 2024
-# Licence:     <your licence>
-# -------------------------------------------------------------------------------
-
-
-def isInteger(n):
-    if isinstance(n, int) and n <= 10 and n >= 0:
+def is_integer(n):
+    if isinstance(n, int) and 10 >= n >= 0:
         return True
     elif isinstance(n, float):
         return n.is_integer()
@@ -20,25 +8,39 @@ def isInteger(n):
 
 
 def main():
-    scoreArray = []
-    totalScore = 0
-    count = 0
-    while count < 10:
-        score = float(input("Enter the score: "))
+    score_array = []
+    total_score = 0
 
-        if isInteger(score):
-            score = int(score)
-            scoreArray.append(score)
-            count += 1
-        else:
-            print("That isn't a valid score. Please try again.")
+    while True:
+        score_input = input("Enter the score (enter 'x' or -1 to stop): ")
 
-    for i in range(0, 10):
-        totalScore += scoreArray[i]
+        if score_input.lower() == 'x' or score_input == '-1':
+            break
 
-    average = totalScore / 10
+        try:
+            score = float(score_input)
+            if is_integer(score):
+                score = int(score)
+                score_array.append(score)
+                total_score += score
+            else:
+                print("That isn't a valid score. Please try again.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
 
-    print(f"The average score is {str(average)}")
+    if not score_array:
+        print("No scores entered.")
+        return
+
+    count = len(score_array)
+    average = total_score / count
+    highest_score = max(score_array)
+    lowest_score = min(score_array)
+
+    print(f"Number of scores entered: {count}")
+    print(f"The average score is {average}")
+    print(f"The highest score is {highest_score}")
+    print(f"The lowest score is {lowest_score}")
 
 
 if __name__ == '__main__':
